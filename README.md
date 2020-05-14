@@ -1,6 +1,8 @@
 # whatsapp-analytics
 Analyse de discussions WhatsApp
 
+[![Python application](https://github.com/koffisani/whatsapp-analytics/workflows/Python%20application/badge.svg)](https://github.com/koffisani/whatsapp-analytics/actions?query=workflow%3A%22Python+application%22)
+
 
 **Bennu Exercise 1**
 
@@ -31,7 +33,15 @@ Please **DO NOT** push **THE MESSAGE HISTORY FILE AND WITHOUT THE CONSOLE LOGS.*
 
 ## How to run
 
-1. Copy WhatsApp chat to the `chats` directory and rename to `WhatsApp_chat.txt`.
-2. Run the command 
+1. Clone the project 
 
-   ```python scripts.py```
+    ```git clone git@github.com:koffisani/whatsapp-analytics.git```
+
+2. Copy WhatsApp chat `.txt` file to the `chats` directory and rename to `WhatsApp_chat.txt`.
+3. Install dependencies
+
+    ```pip install -r requirements.txt```
+
+3. Run the command 
+
+   ```python script.py```
