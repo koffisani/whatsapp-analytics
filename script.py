@@ -3,8 +3,8 @@
 import re
 import pandas as pd
 
-def read_file(file):
-    f = open("chats/{}".format(file), 'r')
+def read_file(folder, file):
+    f = open("{}/{}".format(folder, file), 'r')
 
     messages = re.findall('(\d+/\d+/\d+, \d+:\d+) - (.*): (.*)', f.read())
     f.close()
@@ -23,6 +23,7 @@ def count_sent(data, name):
 if __name__ == "__main__":
     print ("Script d'analyse de discussions WhatsApp")
     user = input ("Merci de saisir votre nom : ")
+    folder_name = "chats"
     file_name = "chat_history.txt"
 
     chats = read_file(file_name)
