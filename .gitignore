@@ -130,5 +130,6 @@ dmypy.json
 
 
 chats/*
+.vscode/
 
 !chats/.gitkeep

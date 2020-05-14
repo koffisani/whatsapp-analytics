@@ -29,7 +29,9 @@ Please **DO NOT** push **THE MESSAGE HISTORY FILE AND WITHOUT THE CONSOLE LOGS.*
     *  Total number of times the user sent and recieved the words "amen", "akpe", "merci", "nagode", "imela", "thanks", "thank you", "alhamdulillah", "shukran"
 
 
-## How to run
+## How to run
 
 1. Copy WhatsApp chat to the `chats` directory and rename to `WhatsApp_chat.txt`.
-2. Run the command `python scripts.py`.
+2. Run the command 
+
+   ```python scripts.py```
