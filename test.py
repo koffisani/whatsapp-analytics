@@ -14,41 +14,37 @@ def test_read_file():
     assert_frame_equal(dataFrame, data)
 
 def test_count_sent():
-    file = "chat-sample.txt"
-    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45"], "nom": ["Toto", "Tata"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*"]})
-    dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
-    dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
-    user = "toto"
-    count = s.count_sent(dataFrame, user)
-    assert count == 0
-
-def test_count_text_sent_unique():
-    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45"], "nom": ["Toto", "Tata"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*"]})
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45"], "nom": ["Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*"]})
     dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
     dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
     user = "Toto"
+    count = s.count_sent(dataFrame, user)
+    assert count == 2
+
+def test_count_text_sent_unique():
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45"], "nom": ["Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*"]})
+    dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
+    dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
     text = "anniversaire"
-    count = s.count_text_sent(dataFrame, user, text)
+    count = s.count_text_sent(dataFrame, text)
 
     assert count == 1
 
 def test_count_text_sent_multiple():
-    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45"], "nom": ["Toto", "Tata", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45"], "nom": ["Toto", "Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
     dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
     dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
-    user = "Toto"
     text = "anniversaire"
-    count = s.count_text_sent(dataFrame, user, text)
+    count = s.count_text_sent(dataFrame, text)
 
     assert count == 2
 
 def test_count_text_sent_multiple_inline():
-    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45"], "nom": ["Toto", "Tata", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire.", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45"], "nom": ["Toto", "Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire.", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
     dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
     dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
-    user = "Toto"
     text = "anniversaire"
-    count = s.count_text_sent(dataFrame, user, text)
+    count = s.count_text_sent(dataFrame, text)
 
     assert count == 2
 

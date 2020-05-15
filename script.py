@@ -44,21 +44,20 @@ def count_sent(data, name):
     :param name: Nom à rechercher
     :return int
     """
-    count = data[data.nom == name].count()["nom"]
-    return count
+    return data.count()["nom"]
+    
 
-def count_text_sent(data, name, text):
+def count_text_sent(data, text):
     """
-    Compte les occurences d'un texte correspondant à un nom dans la colonne message d'une dataframe
+    Compte les occurences d'un texte la colonne message d'une dataframe
 
     :param data pandas dataframe
-    :param name: nom de la personne concernée 
     :param text: texte à chercher
     :return int
     """
-    user_sent = data[data.nom == name]
-    count = user_sent[user_sent.message.str.contains(text)].count()["nom"]
-    return count
+    return data[data.message.str.contains(text)].count()["nom"]
+    
+
 
 if __name__ == "__main__":
     print ("Script d'analyse de discussions WhatsApp")
@@ -68,11 +67,13 @@ if __name__ == "__main__":
 
     chats = read_file(folder_name, file_name)
 
-    count_total_sent = count_sent(chats, user)
+    user_sent_chats = get_user_data(chats, user)
 
-    count_lol_sent = count_text_sent(chats, user, "lol")
+    count_total_sent = count_sent(user_sent_chats, user)
 
-    count_lmao_sent = count_text_sent(chats, user, "lmao")
+    count_lol_sent = count_text_sent(user_sent_chats, "lol")
+
+    count_lmao_sent = count_text_sent(user_sent_chats, "lmao")
 
     print("Statistiques de {} : ".format(user))
     print("\t Messages envoyés \t\t\t : {}".format(count_total_sent))
