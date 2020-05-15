@@ -1,6 +1,6 @@
 #!venv/usr/bin/python
 
-import re
+import re, emoji
 import pandas as pd
 
 def read_file(folder, file):
@@ -57,6 +57,10 @@ def count_text_sent(data, text):
     return data[data.message.str.contains(text)].count()["nom"]
     
 
+def count_sent_emoji(data):
+    pattern = '|'.join(map(re.escape, [f'{emojichar}' for emojichar in emoji.UNICODE_EMOJI]))
+    return data[data.message.str.contains(pattern)].count()['nom']
+    
 
 if __name__ == "__main__":
     print ("Script d'analyse de discussions WhatsApp")
@@ -74,8 +78,11 @@ if __name__ == "__main__":
 
     count_lmao_sent = count_text_sent(user_sent_chats, "lmao")
 
+    count_sent_emoji_by_user = count_sent_emoji(user_sent_chats)
+
     print("Statistiques de {} : ".format(user))
     print("\t Messages envoyés \t\t\t : {}".format(count_total_sent))
     print("\t Messages envoyés contenant lol \t : {}".format(count_lol_sent))
     print("\t Messages envoyés contenant lmao \t : {}".format(count_lmao_sent))
+    print("\t Messages envoyés contenant des émojis \t : {}".format(count_sent_emoji_by_user))
     

@@ -17,8 +17,7 @@ def test_count_sent():
     dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45"], "nom": ["Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*"]})
     dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
     dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
-    user = "Toto"
-    count = s.count_sent(dataFrame, user)
+    count = s.count_sent(dataFrame)
     assert count == 2
 
 def test_count_text_sent_unique():
@@ -75,3 +74,12 @@ def test_get_user_received_data():
     user_sent_data = s.get_user_data(dataFrame, user, sent=False)
 
     assert_frame_equal(expected_data, user_sent_data)
+
+def test_count_sent_emoji():
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45", "3/15/20, 15:15"], "nom": ["Toto", "Toto", "Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire.", "Spéciale dédicace à toi😅 *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire", "Ton petit temple est oû ?? 😅😅😅😅"]})
+    dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
+    dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
+    
+    count = s.count_sent_emoji(dataFrame)
+
+    assert count == 2
