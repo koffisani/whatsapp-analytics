@@ -36,12 +36,11 @@ def get_user_data(data, name, sent = True):
     return data[data.nom != name].copy().reset_index(drop=True)
 
 
-def count_sent(data, name):
+def count_sent(data):
     """
     Compte les occurences d'un nom dans une dataframe
 
     :param data: pandas DataFrame
-    :param name: Nom à rechercher
     :return int
     """
     return data.count()["nom"]
@@ -69,7 +68,7 @@ if __name__ == "__main__":
 
     user_sent_chats = get_user_data(chats, user)
 
-    count_total_sent = count_sent(user_sent_chats, user)
+    count_total_sent = count_sent(user_sent_chats)
 
     count_lol_sent = count_text_sent(user_sent_chats, "lol")
 
