@@ -51,3 +51,31 @@ def test_count_text_sent_multiple_inline():
     count = s.count_text_sent(dataFrame, user, text)
 
     assert count == 2
+
+def test_get_user_sent_data():
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45"], "nom": ["Toto", "Tata", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire.", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
+    dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
+    dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
+    user = "Toto"
+
+    expected_data = pd.DataFrame({"date": ["2/21/19, 09:39", "2/28/19, 12:45"], "nom": ["Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire.", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
+    expected_data['date'] = pd.to_datetime(expected_data['date'], format="%m/%d/%y, %H:%M")
+    expected_data['date'] = expected_data['date'].apply(lambda x: x.date())
+
+    user_sent_data = s.get_user_data(dataFrame, user)
+
+    assert_frame_equal(expected_data, user_sent_data)
+
+def test_get_user_received_data():
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45"], "nom": ["Toto", "Tata", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire.", "Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire"]})
+    dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
+    dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
+    user = "Toto"
+
+    expected_data = pd.DataFrame({"date": ["2/21/19, 09:45"], "nom": ["Tata"], "message": ["Spéciale dédicace à toi *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*"]})
+    expected_data['date'] = pd.to_datetime(expected_data['date'], format="%m/%d/%y, %H:%M")
+    expected_data['date'] = expected_data['date'].apply(lambda x: x.date())
+
+    user_sent_data = s.get_user_data(dataFrame, user, sent=False)
+
+    assert_frame_equal(expected_data, user_sent_data)

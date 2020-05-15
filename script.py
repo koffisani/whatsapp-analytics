@@ -21,6 +21,20 @@ def read_file(folder, file):
 
     return chats
 
+def get_user_data(data, name, sent = True):
+    """
+    Get data corresponding to user
+    :param data: dataframe of all users data
+    :param name: name of the user
+    :param sent: status of the filter, sent messages or received 
+
+    :return pandas Dataframe
+    """
+
+    if (sent):
+        return data[data.nom == name].copy().reset_index(drop=True)
+    return data[data.nom != name].copy().reset_index(drop=True)
+
 
 def count_sent(data, name):
     """
