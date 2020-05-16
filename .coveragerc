@@ -1,4 +1,5 @@
 [run]
 omit =
     venv/*
-    manage.py
+    test.py
+    main.py

@@ -1,4 +1,4 @@
-import sys, pandas as pd
+import sys, pandas as pd, emoji
 import script as s
 from pandas._testing import assert_frame_equal
 
@@ -80,6 +80,20 @@ def test_count_sent_emoji():
     dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
     dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
     
-    count = s.count_sent_emoji(dataFrame)
+    pattern = s.build_pattern(emoji.UNICODE_EMOJI)
+    count = s.count_text_sent(dataFrame, pattern)
 
     assert count == 2
+
+def test_count_profanities():
+    profanities = ["fuck", "merde", "putain", "ass"]
+
+    dataFrame = pd.DataFrame({"date": ["2/21/19, 09:39", "2/21/19, 09:45", "2/28/19, 12:45", "3/15/20, 15:15"], "nom": ["Toto", "Toto", "Toto", "Toto"], "message": ["Joyeux anniversaire à toi. Pluie de bénédiction sur toi. Encore une fois joyeux anniversaire. putain", "Spéciale dédicace à toi😅 *JE LEVE MES YEUX, MES YEUX VERS LES MONTAGNES*", "Merci pour vos voeux à l'occasion de mon anniversaire", "Ton petit temple est oû ?? 😅😅😅😅"]})
+    dataFrame['date'] = pd.to_datetime(dataFrame['date'], format="%m/%d/%y, %H:%M")
+    dataFrame['date'] = dataFrame['date'].apply(lambda x: x.date())
+
+    pattern = s.build_pattern(profanities)
+
+    count = s.count_text_sent(dataFrame, pattern)
+
+    assert count == 1
