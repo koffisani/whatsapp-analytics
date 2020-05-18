@@ -12,12 +12,12 @@ def read_file(folder, file):
     """
     f = open("{}/{}".format(folder, file), 'r')
 
-    messages = re.findall('(\d+/\d+/\d+, \d+:\d+) - (.*): (.*)', f.read())
+    messages = re.findall('\[(\d+/\d+/\d+, \d+:\d+:\d+ (?:AM|PM))\] (.*): (.*)', f.read())
     f.close()
-
+    #print(messages)
     chats = pd.DataFrame(messages, columns=['date','nom','message'])
-    chats['date'] = pd.to_datetime(chats['date'], format="%m/%d/%y, %H:%M")
-    chats['date'] = chats['date'].apply(lambda x: x.date())
+    chats['date'] = pd.to_datetime(chats['date'], format="%m/%d/%y, %H:%M:%S %p")
+    chats['date'] = chats['date'].apply(lambda x: x.strftime("%Y-%m-%d %H:%M:%S %p"))
 
     return chats
 

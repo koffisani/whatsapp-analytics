@@ -1,0 +1,5 @@
+[4/25/20, 3:49:49 PM] Cleef Messan: Messages to this chat and calls are now secured with end-to-end encryption.
+[4/25/20, 4:37:00 PM] Cleef Messan: Hey Bennu, I am Cleef.
+[4/25/20, 4:37:18 PM] Bennu-AI: Hey Cleef, Nice to meet you. how are you doing? 
+[4/25/20, 4:38:13 PM] Cleef Messan: I'm well. How are you?
+[4/25/20, 4:38:16 PM] Bennu-AI: I am computer bot. I am always well.

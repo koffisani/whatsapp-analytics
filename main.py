@@ -4,7 +4,7 @@ if __name__ == "__main__":
     print ("Script d'analyse de discussions WhatsApp")
     user = input ("Merci de saisir le nom de la personne : ")
     folder_name = "chats"
-    file_name = "chat_history.txt"
+    file_name = "chat_history_2.txt"
 
     emoji_pattern = build_pattern(emoji.UNICODE_EMOJI)
 

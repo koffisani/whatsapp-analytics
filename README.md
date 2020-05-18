@@ -56,7 +56,9 @@ There are two users in the chat history, in the name of **Bennu-AI** and **Cleef
 
     ```git clone git@github.com:koffisani/whatsapp-analytics.git```
 
-2. Copy WhatsApp chat `.txt` file to the `chats` directory and rename to `WhatsApp_chat.txt`.
+2. Move to the project directory, create a virtual environment and activate it.
+
+2. Copy WhatsApp chat `.txt` file to the `chats/` directory and rename to `chat_history.txt`.
 3. Install dependencies
 
     ```pip install -r requirements.txt```
